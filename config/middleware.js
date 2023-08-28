@@ -7,8 +7,11 @@ const session = require("express-session")
 const passport = require("passport")
 const methodOverride = require("method-override");
 require("./passport")
+require("./database")
+
 
 function middleware(app) {
+    console.log("Middleware function ran!")
     app.use(logger('dev'));
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));

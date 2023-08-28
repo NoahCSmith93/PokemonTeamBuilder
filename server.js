@@ -12,7 +12,7 @@ app.set('view engine', 'ejs');
 middleware(app)
 
 app.get("/", (req, res) => {
-    res.send("Hello World!")
+    res.render("index")
 })
 
 const PORT = process.env.PORT
