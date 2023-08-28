@@ -1,0 +1,34 @@
+{
+  "name": "pokemonteambuilder",
+  "version": "1.0.0",
+  "description": "An experimental app for creating dedicated pages for Pokemon teams. It will include the ability for each user to make their own teams and leave comments on other users' teams.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NoahCSmith93/PokemonTeamBuilder.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NoahCSmith93/PokemonTeamBuilder/issues"
+  },
+  "homepage": "https://github.com/NoahCSmith93/PokemonTeamBuilder#readme",
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
+    "express": "~4.16.1",
+    "express-session": "^1.17.3",
+    "http-errors": "~1.6.3",
+    "method-override": "^3.0.0",
+    "mongoose": "^7.0.2",
+    "morgan": "~1.9.1",
+    "nodemon": "^3.0.1",
+    "passport": "^0.6.0",
+    "passport-google-oauth": "^2.0.0"
+  }
+}
