@@ -17,6 +17,7 @@ function middleware(app) {
     app.use(express.urlencoded({ extended: true }));
     app.use(cookieParser());
     app.use(methodOverride("_method"))
+    app.use(express.static('public'))
 
     // This sets up our session so passport can use it
     app.use(session({
