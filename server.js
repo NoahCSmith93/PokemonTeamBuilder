@@ -18,6 +18,9 @@ middleware(app)
 app.get("/", (req, res) => {
     res.render("index", {title: "Main Page"})
 })
+app.get("/error", (req, res) => {
+    res.render("error", {title: "Something went wrong..."})
+})
 
 app.use("/", AuthRouter)
 app.use("/teams", TeamsRouter)
