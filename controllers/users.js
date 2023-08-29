@@ -3,6 +3,7 @@ const express = require('express');
 require('dotenv').config()
 
 const User = require('../models/user')
+const Team = require("../models/team")
 const checkLogin = require('../config/ensureLoggedIn')
 
 const router = express.Router()
@@ -19,10 +20,18 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
     User.findById(req.params.id)
         .then(user => {
-            res.render("users/show", { user, title: `${user.name}` })
+            Team.find({ owner: user._id })
+                .then(teams => {
+                    console.log("Found these teams", teams)
+                    res.render("users/show", { teams, user, title: `${user.name}`})
+                })
+        })
+        .catch(err => {
+            console.log(err)
         })
 })
-
+    
+// res.render("users/show", { user, title: `${username}` })
 
 // Export
 module.exports = router;
