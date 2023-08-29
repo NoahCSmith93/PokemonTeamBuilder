@@ -1,5 +1,30 @@
 <%- include("../partials/nav") %>
 
+<div class="name-desc">
+    <form action="/teams/<%= team._id %>?_method=PATCH" method="post">
+        <fieldset>
+           <label>Name:</label>
+           <input type="text" name="name" value="<%= if (team.name) team.name %>" placeholder="Untitled">
+           <label>Description:</label>
+           <input type="text" name="description" value="<%= if (team.description) team.description %>">
+        </fieldset>
+    </form>
+</div>
 
+<div class="team-members">
+    <% team.members.forEach(member => { %>
+    
+    <% }) %>
+    <form action="/teams/<%= team._id %>?_method=PATCH" method="post">
+        <label>Name:</label>
+        <input type="text">
+        <label>Species:</label>
+        <input type="text">
+        <label>Ability:</label>
+        <input type="text">
+        <label>Moves:</label>
+        <input type="text">
+    </form>
+</div>
 
 <%- include("../partials/footer") %>
