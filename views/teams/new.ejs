@@ -1,7 +1,12 @@
 <%- include("../partials/nav") %>
 
 <form class="new-team" action="/teams" method="post">
-    
+    <label>Name:</label>
+    <input type="text" name="name" placeholder="Untitled">
+    <label>Description</label>
+    <input type="text" name="description">
+    <br>
+    <input type="submit" value="Create Team">
 </form>
 
 <%- include("../partials/footer") %>

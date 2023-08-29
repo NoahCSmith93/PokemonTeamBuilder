@@ -23,11 +23,12 @@ router.get("/:id", (req, res) => {
             Team.find({ owner: user._id })
                 .then(teams => {
                     console.log("Found these teams", teams)
-                    res.render("users/show", { teams, user, title: `${user.name}`})
+                    res.render("users/show", { user: req.user, teams, user, title: `${user.name}`})
                 })
         })
         .catch(err => {
             console.log(err)
+            res.redirect("/")
         })
 })
     

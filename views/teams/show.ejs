@@ -1,3 +1,17 @@
 <%- include("../partials/nav") %>
 
+<h3>Description:</h3>
+<p><%= team.description %></p>
+
+<h3>Members:</h3>
+    <% team.members.forEach(member => { %>
+        <h4>member.species</h4>
+        <h4>member.ability</h4>
+        <ol>
+            <% member.moves.forEach(move => { %>
+            <li>move</li>
+            <% }) %>
+        </ol>
+    <% }) %>
+
 <%- include("../partials/footer") %>
