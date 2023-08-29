@@ -7,3 +7,22 @@
   body {
     background-color: darkgray;
   }
+
+  a > img {
+    height: 3vh;
+    margin-left: .5vmin;
+}
+
+nav {
+  padding-top: .5vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: end;
+}
+
+nav > a {
+  margin: 1vmin;
+  display: flex;
+  align-items: center;
+}

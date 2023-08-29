@@ -4,10 +4,16 @@
     |
     <a href="/teams">Teams</a>
     |
-    <a href="/">Create</a>
+    <% if (user) { %>
+    <a href="/new">Create</a>
     |
-    <a href="/">My Teams</a>
+    <a href="/users/<%= user.id %>">My Teams</a>
     |
-    <a href="/">Log Out</a>
+    <a href="/logout">Log Out</a>
+    <% } else { %>
+    <a href="/auth/google">Log In
+        <img src="https://i.imgur.com/FHjYyi0.png">
+    </a>
+    <% } %>
 </nav>
 <h3><%= title %></h3>

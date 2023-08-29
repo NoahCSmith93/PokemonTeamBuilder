@@ -39,7 +39,7 @@ passport.serializeUser(function(user, cb) {
     cb(null, user._id)
 })
 
-// this is the method to serialize our users
+// this is the method to deserialize our users
 passport.deserializeUser(async function(userId, cb) {
     cb(null, await User.findById(userId))
 })

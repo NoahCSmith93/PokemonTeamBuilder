@@ -26,7 +26,9 @@ router.get("/", (req, res) => {
 // Update
 
 // New
-
+router.get("/new", (req, res) => {
+    res.render("teams/new", { title: "New Team" })
+})
 // Create
 
 // Delete

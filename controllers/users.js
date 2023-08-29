@@ -9,11 +9,17 @@ const router = express.Router()
 
 // Routes and Controllers
 
+// Index
+// only here to redirect from login
+router.get("/", (req, res) => {
+    res.redirect(`/users/${req.user._id}`)
+})
+
 // Show
 router.get("/:id", (req, res) => {
     User.findById(req.params.id)
         .then(user => {
-            res.render("user/show", { user, title: `${user.name}` })
+            res.render("users/show", { user, title: `${user.name}` })
         })
 })
 
