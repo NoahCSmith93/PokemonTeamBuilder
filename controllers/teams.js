@@ -3,7 +3,8 @@ const express = require('express');
 require('dotenv').config()
 
 const Team = require('../models/team')
-const checkLogin = require('../config/ensureLoggedIn')
+const checkLogin = require('../config/ensureLoggedIn');
+const ensureLoggedIn = require('../config/ensureLoggedIn');
 
 const router = express.Router()
 
@@ -66,15 +67,19 @@ router.patch("/:id", checkLogin, (req, res) => {
 router.post("/:id", checkLogin, (req, res) => {
     Team.findById(req.params.id)
         .then(team => {
-            if (req.user._id == team.owner) {
+            if (req.user.id == team.owner) {
                 team.members.push(req.body)
                 return team.save()
             } else {
-                res.redirect("/error")
+                return
             }
         })
-        .then(() => {
-            res.redirect("back")
+        .then((data) => {
+            if (data) {
+                res.redirect("back")
+            } else {
+                res.redirect("/error")
+            }
         })
         .catch(err => {
             console.log(err)
@@ -100,6 +105,22 @@ router.post('/', checkLogin, (req, res) => {
         })
 })
 
+// Delete Confirmation
+router.get("/:id/confirm", checkLogin, (req, res) => {
+    Team.findById(req.params.id)
+        .then(team => {
+            res.render("teams/confirm", {
+                user: req.user,
+                team,
+                title: "Are you sure you want to delete " + (team.name ? team.name : "Untitled Team") + "?"
+            })
+        })
+        .catch(err => {
+            console.log(err)
+            res.redirect("/error")
+        })
+})
+
 // Delete
 
 // Show
@@ -108,7 +129,6 @@ router.get("/:id", (req, res) => {
         .populate('owner')
         .populate('comments.author')
         .then(team => {
-            console.log("Here is req.user", req.user)
             res.render("teams/show", {
                 user: req.user,
                 title: team.name ? `${team.name}` : "Untitled Team",
