@@ -30,7 +30,7 @@ router.get("/:id/edit", checkLogin, (req, res) => {
         .then(team => {
             res.render("teams/edit", {
                 user: req.user,
-                title: "Add Or Remove Pokemon In " + (team.name ? `${team.name}` : "Untitled Team"),
+                title: "Add Or Change Pokemon In " + (team.name ? `${team.name}` : "Untitled Team"),
                 team
             })
         })
@@ -41,8 +41,36 @@ router.get("/:id/edit", checkLogin, (req, res) => {
 })
 
 // Update
+router.patch("/:id", checkLogin, (req, res) => {
+    Team.findById(req.params.id)
+        .then(team => {
+           return team.members.findById(req.body.memberId)
+        })
+        .then(member => {
+            member.updateOne(req.body)
+        })
+        .then(() => {
+            res.redirect("back")
+        })
+        .catch(err => {
+            console.log(err)
+            res.redirect("/error")
+        })
+})
 
-// New
+// Create Pokemon
+router.post("/:id", checkLogin, (req, res) => {
+    Team.findById(req.params.id)
+        .then(team => {
+            team.members.create(req.body)
+        })
+        .catch(err => {
+            console.log(err)
+            res.redirect("/error")
+        })
+})
+
+// New Team
 router.get("/new", checkLogin, (req, res) => {
     res.render("teams/new", { user: req.user, title: "New Team" })
 })
@@ -85,3 +113,9 @@ router.get("/:id", (req, res) => {
 
 // Export
 module.exports = router;
+
+if (req.user._id == team.owner) {
+    team.members.push
+} else {
+    res.redirect("/error")
+}

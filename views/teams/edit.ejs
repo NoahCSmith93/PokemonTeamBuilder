@@ -13,18 +13,44 @@
 
 <div class="team-members">
     <% team.members.forEach(member => { %>
-    
+        <form action="/teams/<%= team._id %>?_method=PATCH" method="post">
+            <input type="hidden" name="memberId" value="<%= member._id %>">
+            <label>Name:</label>
+            <input name="name" type="text" value="<% if(member.name) member.name%>">
+            <label>Species:</label>
+            <input name="species" type="text" value="member.species" required>
+            <label>Ability:</label>
+            <input name="ability" type="text" value="<% if(member.ability) member.ability%>">
+            <label>Moves:</label>
+            <ol>
+                <% member.moves.forEach(move => { %>
+                    <li><%= move %></li>
+                <% }) %>
+            </ol>
+            <% for (let i = 4 - member.moves.length; i > 0; i--){ %>
+                <input name="moves" type="text" placeholder="New Move">
+            <% } %>
+            <br>
+            <input type="submit" value="Confirm changes">
+        </form>
     <% }) %>
-    <form action="/teams/<%= team._id %>?_method=PATCH" method="post">
+    <form action="/teams/<%= team._id %>" method="post">
         <label>Name:</label>
-        <input type="text">
+        <input name="name" type="text" placeholder="Nickname">
         <label>Species:</label>
-        <input type="text">
+        <input name="species" type="text" placeholder="Species" required>
         <label>Ability:</label>
-        <input type="text">
+        <input name="ability" type="text">
         <label>Moves:</label>
-        <input type="text">
+        <% for (let i = 0; i < 4; i++) { %>
+        <input name="moves" type="text" placeholder="New Move">
+        <% } %>
+        <br>
+        <input type="submit" value="Add to team">
     </form>
 </div>
+<br>
+<br>
+<a href="/users/<%= user._id %>">Done Editing</a>
 
 <%- include("../partials/footer") %>
