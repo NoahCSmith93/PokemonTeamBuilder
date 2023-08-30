@@ -16,7 +16,10 @@
                     </ol>
                 </p>
             <% }) %>
+        <% if (user.id == team.owner) { %>
         <a href="/teams/<%= team._id %>/edit">Edit Team</a>
+        <% } %>
+        <a href="/teams/<%= team._id %>">View Team</a>
     </div>
 <% }) %>
 

@@ -34,6 +34,8 @@ const teamSchema = new Schema({
     description: String,
     comments: [commentSchema],
     rating: Number
+}, {
+    timestamps: true
 })
 
 module.exports = mongoose.model("Team", teamSchema)

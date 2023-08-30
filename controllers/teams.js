@@ -44,10 +44,14 @@ router.get("/:id/edit", checkLogin, (req, res) => {
 router.patch("/:id", checkLogin, (req, res) => {
     Team.findById(req.params.id)
         .then(team => {
-           return team.members.findById(req.body.memberId)
-        })
-        .then(member => {
-            member.updateOne(req.body)
+            const editedMember = team.members.id(req.body.memberId)
+            console.log("Found this member:", editedMember)
+            console.log("This is req.body", req.body)
+            editedMember.name = req.body.name
+            editedMember.species = req.body.species
+            editedMember.ability = req.body.ability
+            editedMember.moves = req.body.moves
+            return team.save()
         })
         .then(() => {
             res.redirect("back")
@@ -60,13 +64,14 @@ router.patch("/:id", checkLogin, (req, res) => {
 
 // Create Pokemon
 router.post("/:id", checkLogin, (req, res) => {
-    console.log("Create route got hit!")
     Team.findById(req.params.id)
         .then(team => {
-            console.log("Found team successfully:", team)
-            console.log("Here is req.body", req.body)
-            team.members.push(req.body)
-            return team.save()
+            if (req.user._id == team.owner) {
+                team.members.push(req.body)
+                return team.save()
+            } else {
+                res.redirect("/error")
+            }
         })
         .then(() => {
             res.redirect("back")
@@ -82,7 +87,7 @@ router.get("/new", checkLogin, (req, res) => {
     res.render("teams/new", { user: req.user, title: "New Team" })
 })
 
-// Create
+// Create Team
 router.post('/', checkLogin, (req, res) => {
     req.body.owner = req.user._id
     Team.create(req.body)
@@ -103,7 +108,7 @@ router.get("/:id", (req, res) => {
         .populate('owner')
         .populate('comments.author')
         .then(team => {
-            console.log("Found this team", team)
+            console.log("Here is req.user", req.user)
             res.render("teams/show", {
                 user: req.user,
                 title: team.name ? `${team.name}` : "Untitled Team",
@@ -122,7 +127,7 @@ router.get("/:id", (req, res) => {
 module.exports = router;
 
 // if (req.user._id == team.owner) {
-//     team.members.push
+//
 // } else {
 //     res.redirect("/error")
 // }

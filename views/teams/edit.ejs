@@ -7,45 +7,57 @@
            <input type="text" name="name" value="<%= team.name ? team.name : '' %>" placeholder="Untitled">
            <label>Description:</label>
            <input type="text" name="description" value="<%= team.description ? team.description : '' %>">
+           <input type="submit">
         </fieldset>
     </form>
 </div>
 <br>
 <div class="team-members">
     <% team.members.forEach(member => { %>
+        <h3>Pokemon <%= (team.members.indexOf(member) + 1) %></h3>
         <form action="/teams/<%= team._id %>?_method=PATCH" method="post">
             <input type="hidden" name="memberId" value="<%= member._id %>">
             <label>Name:</label>
-            <input name="name" type="text" value="<% member.name ? member.name : '' %>">
+            <input name="name" type="text" value="<%= member.name ? member.name : '' %>">
+            <br>
             <label>Species:</label>
             <input name="species" type="text" value="<%= member.species %>" required>
+            <br>
             <label>Ability:</label>
-            <input name="ability" type="text" value="<% member.ability ? member.ability : '' %>">
+            <input name="ability" type="text" value="<%= member.ability ? member.ability : '' %>">
+            <br>
             <label>Moves:</label>
             <ol>
                 <% member.moves.forEach(move => { %>
-                    <li><%= move %></li>
+                    <li>
+                        <input name="moves" type="text" placeholder="New Move" value="<%= move ? move : '' %>">
+                    </li>
                 <% }) %>
             </ol>
-            <% for (let i = 4 - member.moves.length; i > 0; i--){ %>
-                <input name="moves" type="text" placeholder="New Move">
-            <% } %>
             <input type="submit" value="Confirm changes">
         </form>
         <br>
     <% }) %>
     <br>
+    <h3>New Pokemon</h3>
     <form action="/teams/<%= team._id %>" method="post">
         <label>Name:</label>
         <input name="name" type="text" placeholder="Nickname">
+        <br>
         <label>Species:</label>
         <input name="species" type="text" placeholder="Species" required>
+        <br>
         <label>Ability:</label>
         <input name="ability" type="text">
+        <br>
         <label>Moves:</label>
-        <% for (let i = 0; i < 4; i++) { %>
-        <input name="moves" type="text" placeholder="New Move">
-        <% } %>
+        <ol>
+            <% for (let i = 0; i < 4; i++) { %>
+                <li>
+                    <input name="moves" type="text" placeholder="New Move">
+                </li>
+            <% } %>
+        </ol>
         <br>
         <input type="submit" value="Add to team">
     </form>

@@ -1,11 +1,11 @@
 * {
     box-sizing: border-box;
     font-family: Helvetica;
-    color: #424748;
   }
 
   body {
     background-color: darkgray;
+    color: black;
   }
 
   a > img {

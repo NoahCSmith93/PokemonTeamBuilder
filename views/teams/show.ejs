@@ -1,15 +1,16 @@
 <%- include("../partials/nav") %>
-
+<a href="/users/<%= team.owner._id %>">Back to <%= team.owner.name %>'s page</a>
 <h3>Description:</h3>
 <p><%= team.description %></p>
 
 <h3>Members:</h3>
     <% team.members.forEach(member => { %>
-        <h4>member.species</h4>
-        <h4>member.ability</h4>
+        <h4><%= member.name %></h4>
+        <h5><%= member.species %></h5>
+        <h4><%= member.ability %></h4>
         <ol>
             <% member.moves.forEach(move => { %>
-            <li>move</li>
+            <li><%= move %></li>
             <% }) %>
         </ol>
     <% }) %>

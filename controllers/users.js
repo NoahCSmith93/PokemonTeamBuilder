@@ -22,8 +22,7 @@ router.get("/:id", (req, res) => {
         .then(user => {
             Team.find({ owner: user._id })
                 .then(teams => {
-                    console.log("Found these teams", teams)
-                    res.render("users/show", { user: req.user, teams, user, title: `${user.name}`})
+                    res.render("users/show", { teams, user, title: `${user.name}`})
                 })
         })
         .catch(err => {
