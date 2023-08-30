@@ -1,3 +1,23 @@
 <%- include("../partials/nav") %>
 
+<% teams.forEach(team => { %>
+    <div class="team-index">
+        <h3><%= team.name ? team.name : "Untitled Team" %></h3>
+        <h5><%= team.description ? team.description : "" %></h5>
+            <% team.members.forEach(member => { %>
+                <p>Nickname: <%= member.name %></p>
+                <p>Species: <%= member.species %></p>
+                <p>Ability: <%= member.ability %></p>
+                <p>Moves:
+                    <ol>
+                        <% member.moves.forEach(move => { %>
+                            <li><%= move %></li>    
+                        <% }) %>
+                    </ol>
+                </p>
+            <% }) %>
+        <a href="/teams/<%= team._id %>/edit">Edit Team</a>
+    </div>
+<% }) %>
+
 <%- include("../partials/footer") %>

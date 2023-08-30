@@ -9,7 +9,6 @@ const pokemonSchema = new Schema({
     },
     ability: {
         type: String,
-        required: true
     },
     moves: [String]
 })

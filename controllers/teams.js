@@ -60,9 +60,16 @@ router.patch("/:id", checkLogin, (req, res) => {
 
 // Create Pokemon
 router.post("/:id", checkLogin, (req, res) => {
+    console.log("Create route got hit!")
     Team.findById(req.params.id)
         .then(team => {
-            team.members.create(req.body)
+            console.log("Found team successfully:", team)
+            console.log("Here is req.body", req.body)
+            team.members.push(req.body)
+            return team.save()
+        })
+        .then(() => {
+            res.redirect("back")
         })
         .catch(err => {
             console.log(err)
@@ -114,8 +121,8 @@ router.get("/:id", (req, res) => {
 // Export
 module.exports = router;
 
-if (req.user._id == team.owner) {
-    team.members.push
-} else {
-    res.redirect("/error")
-}
+// if (req.user._id == team.owner) {
+//     team.members.push
+// } else {
+//     res.redirect("/error")
+// }

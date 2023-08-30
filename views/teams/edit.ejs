@@ -4,23 +4,23 @@
     <form action="/teams/<%= team._id %>?_method=PATCH" method="post">
         <fieldset>
            <label>Name:</label>
-           <input type="text" name="name" value="<%= if (team.name) team.name %>" placeholder="Untitled">
+           <input type="text" name="name" value="<%= team.name ? team.name : '' %>" placeholder="Untitled">
            <label>Description:</label>
-           <input type="text" name="description" value="<%= if (team.description) team.description %>">
+           <input type="text" name="description" value="<%= team.description ? team.description : '' %>">
         </fieldset>
     </form>
 </div>
-
+<br>
 <div class="team-members">
     <% team.members.forEach(member => { %>
         <form action="/teams/<%= team._id %>?_method=PATCH" method="post">
             <input type="hidden" name="memberId" value="<%= member._id %>">
             <label>Name:</label>
-            <input name="name" type="text" value="<% if(member.name) member.name%>">
+            <input name="name" type="text" value="<% member.name ? member.name : '' %>">
             <label>Species:</label>
-            <input name="species" type="text" value="member.species" required>
+            <input name="species" type="text" value="<%= member.species %>" required>
             <label>Ability:</label>
-            <input name="ability" type="text" value="<% if(member.ability) member.ability%>">
+            <input name="ability" type="text" value="<% member.ability ? member.ability : '' %>">
             <label>Moves:</label>
             <ol>
                 <% member.moves.forEach(move => { %>
@@ -30,10 +30,11 @@
             <% for (let i = 4 - member.moves.length; i > 0; i--){ %>
                 <input name="moves" type="text" placeholder="New Move">
             <% } %>
-            <br>
             <input type="submit" value="Confirm changes">
         </form>
+        <br>
     <% }) %>
+    <br>
     <form action="/teams/<%= team._id %>" method="post">
         <label>Name:</label>
         <input name="name" type="text" placeholder="Nickname">
