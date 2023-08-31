@@ -35,8 +35,16 @@ span {
 .team-index {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
   column-gap: 10px;
+  row-gap: 5vmin;
+}
+
+.team-edit {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr 1fr;
+  column-gap: 5vmin;
   row-gap: 5vmin;
 }
 
@@ -48,6 +56,10 @@ span {
   box-sizing: border-box;
 }
 
+.edit-team {
+  width: max-content;
+}
+
 .team-link {
  justify-self: end;
  margin-top: auto;
@@ -55,4 +67,26 @@ span {
 
 .members {
   margin: -1vmin, auto;
+}
+
+.edit-label::after {
+  content: '\00a0\00a0'
+}
+
+.edit-field {
+  margin-left: auto;
+}
+
+.no-indent {
+  padding-left: 2vmin;
+}
+
+.edit-flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-group {
+  display: flex;
+  justify-content: start;
 }

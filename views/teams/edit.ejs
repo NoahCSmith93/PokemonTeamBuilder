@@ -6,59 +6,73 @@
     </h2>
     <p><%= team.description ? team.description : "" %></p>
 </div>
+<a href="/users/<%= user._id %>">Done Editing</a>
 <br>
-<div class="team-members">
+<br>
+<br>
+<br>
+<div class="team-edit">
     <% team.members.forEach(member => { %>
-        <h3>Pokemon <%= (team.members.indexOf(member) + 1) %></h3>
-        <form action="/teams/<%= team._id %>?_method=PATCH" method="post">
-            <input type="hidden" name="memberId" value="<%= member._id %>">
+        <div class="edit-team">
+
+            <h3>Pokemon <%= (team.members.indexOf(member) + 1) %></h3>
+            <form action="/teams/<%= team._id %>?_method=PATCH" method="post">
+                <input type="hidden" name="memberId" value="<%= member._id %>">
+                <div class="edit-flex">
+                    <div class="edit-group">     
+                        <label class="edit-label">Name:</label>
+                        <input class="edit-field" name="name" type="text" value="<%= member.name ? member.name : '' %>">
+                        <br>
+                    </div>
+                    <div class="edit-group">
+                        <label class="edit-label">Species:</label>
+                        <input class="edit-field" name="species" type="text" value="<%= member.species %>" required>
+                        <br>
+                    </div>
+                    <div class="edit-group">
+                        <label class="edit-label">Ability:</label>
+                        <input class="edit-field" name="ability" type="text" value="<%= member.ability ? member.ability : '' %>">
+                        <br>
+                    </div>
+                </div>
+                <label>Moves:</label>
+                <ol class="no-indent">
+                    <% member.moves.forEach(move => { %>
+                        <li>
+                            <input name="moves" type="text" placeholder="New Move" value="<%= move ? move : '' %>">
+                        </li>
+                        <% }) %>
+                    </ol>
+                    <input type="submit" value="Confirm changes">
+            </form>
+            <br>
+        </div>
+    <% }) %>
+    <br>
+    <% if (team.members.length < 6) { %>
+        <h3>New Pokemon</h3>
+        <form action="/teams/<%= team._id %>" method="post">
             <label>Name:</label>
-            <input name="name" type="text" value="<%= member.name ? member.name : '' %>">
+            <input name="name" type="text" placeholder="Nickname">
             <br>
             <label>Species:</label>
-            <input name="species" type="text" value="<%= member.species %>" required>
+            <input name="species" type="text" placeholder="Species" required>
             <br>
             <label>Ability:</label>
-            <input name="ability" type="text" value="<%= member.ability ? member.ability : '' %>">
+            <input name="ability" type="text">
             <br>
             <label>Moves:</label>
             <ol>
-                <% member.moves.forEach(move => { %>
+                <% for (let i = 0; i < 4; i++) { %>
                     <li>
-                        <input name="moves" type="text" placeholder="New Move" value="<%= move ? move : '' %>">
+                        <input name="moves" type="text" placeholder="New Move">
                     </li>
-                <% }) %>
+                <% } %>
             </ol>
-            <input type="submit" value="Confirm changes">
+            <br>
+            <input type="submit" value="Add to team">
         </form>
-        <br>
-    <% }) %>
-    <br>
-    <h3>New Pokemon</h3>
-    <form action="/teams/<%= team._id %>" method="post">
-        <label>Name:</label>
-        <input name="name" type="text" placeholder="Nickname">
-        <br>
-        <label>Species:</label>
-        <input name="species" type="text" placeholder="Species" required>
-        <br>
-        <label>Ability:</label>
-        <input name="ability" type="text">
-        <br>
-        <label>Moves:</label>
-        <ol>
-            <% for (let i = 0; i < 4; i++) { %>
-                <li>
-                    <input name="moves" type="text" placeholder="New Move">
-                </li>
-            <% } %>
-        </ol>
-        <br>
-        <input type="submit" value="Add to team">
-    </form>
+    <% } %>
 </div>
-<br>
-<br>
-<a href="/users/<%= user._id %>">Done Editing</a>
 
 <%- include("../partials/footer") %>
