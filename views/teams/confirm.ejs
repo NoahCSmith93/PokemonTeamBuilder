@@ -1,6 +1,12 @@
 <%- include("../partials/nav") %>
 
-
+<form action="/teams/<%= team.id %>/delete?_method=DELETE" method="post">
+    <button type="submit">Yes I'm Sure</button>
+  </form>
+<form action="/users/<%= user.id %>" method="get">
+    <button type="submit">No, take me back</button>
+  </form>
+  
 
 
 <%- include("../partials/footer") %>

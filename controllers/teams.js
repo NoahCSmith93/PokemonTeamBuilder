@@ -26,18 +26,19 @@ router.get("/", (req, res) => {
 // Edit
 router.get("/:id/edit", checkLogin, (req, res) => {
     Team.findById(req.params.id)
-        .populate('owner')
-        .populate('comments.author')
         .then(team => {
-            res.render("teams/edit", {
-                user: req.user,
-                title: "Add Or Change Pokemon In " + (team.name ? `${team.name}` : "Untitled Team"),
-                team
-            })
+            if (req.user.id == team.owner) {
+                res.render("teams/edit", {
+                    user: req.user,
+                    title: "Add Or Change Pokemon In " + (team.name ? `${team.name}` : "Untitled Team"),
+                    team
+                })
+            } else {
+                res.send("something went wrong")
+            }
         })
         .catch(err => {
             console.log(err)
-            res.redirect("/error")
         })
 })
 
@@ -45,21 +46,26 @@ router.get("/:id/edit", checkLogin, (req, res) => {
 router.patch("/:id", checkLogin, (req, res) => {
     Team.findById(req.params.id)
         .then(team => {
-            const editedMember = team.members.id(req.body.memberId)
-            console.log("Found this member:", editedMember)
-            console.log("This is req.body", req.body)
-            editedMember.name = req.body.name
-            editedMember.species = req.body.species
-            editedMember.ability = req.body.ability
-            editedMember.moves = req.body.moves
-            return team.save()
+            if (req.user.id == team.owner) {
+                const editedMember = team.members.id(req.body.memberId)
+                editedMember.name = req.body.name
+                editedMember.species = req.body.species
+                editedMember.ability = req.body.ability
+                editedMember.moves = req.body.moves
+                return team.save()
+            } else {
+                return
+            }
         })
-        .then(() => {
-            res.redirect("back")
+        .then((data) => {
+            if (data) {
+                res.redirect("back")
+            } else {
+                res.redirect("/error")
+            }
         })
         .catch(err => {
             console.log(err)
-            res.redirect("/error")
         })
 })
 
@@ -83,7 +89,6 @@ router.post("/:id", checkLogin, (req, res) => {
         })
         .catch(err => {
             console.log(err)
-            res.redirect("/error")
         })
 })
 
@@ -94,7 +99,7 @@ router.get("/new", checkLogin, (req, res) => {
 
 // Create Team
 router.post('/', checkLogin, (req, res) => {
-    req.body.owner = req.user._id
+    req.body.owner = req.user.id
     Team.create(req.body)
         .then(team => {
             res.redirect(`/teams/${team._id}/edit`)
@@ -109,19 +114,43 @@ router.post('/', checkLogin, (req, res) => {
 router.get("/:id/confirm", checkLogin, (req, res) => {
     Team.findById(req.params.id)
         .then(team => {
-            res.render("teams/confirm", {
-                user: req.user,
-                team,
-                title: "Are you sure you want to delete " + (team.name ? team.name : "Untitled Team") + "?"
-            })
+            if (req.user.id == team.owner) {
+                res.render("teams/confirm", {
+                    user: req.user,
+                    team,
+                    title: "Are you sure you want to delete " + (team.name ? team.name : "Untitled Team") + "?"
+                })
+            } else {
+                res.redirect("/error")
+            }
         })
         .catch(err => {
             console.log(err)
-            res.redirect("/error")
         })
 })
 
 // Delete
+router.delete("/:id/delete", checkLogin, (req, res) => {
+    Team.findById(req.params.id)
+        .then(team => {
+            if (req.user.id == team.owner) {
+                 return team.deleteOne()
+            } else {
+                return
+            }
+        })
+        .then(data => {
+            if (data) {
+                console.log("Here's the deleted data", data)
+                res.redirect(`/users/${data.owner}`)
+            } else {
+                res.redirect("/error")
+            }
+        })
+        .catch(err => {
+            console.log(err)
+        })
+})
 
 // Show
 router.get("/:id", (req, res) => {
@@ -146,7 +175,7 @@ router.get("/:id", (req, res) => {
 // Export
 module.exports = router;
 
-// if (req.user._id == team.owner) {
+// if (req.user.id == team.owner) {
 //
 // } else {
 //     res.redirect("/error")
