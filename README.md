@@ -4,13 +4,13 @@ An experimental app for creating dedicated pages for Pokemon teams. It will incl
 # User Stories
 
  As a user, I want the ability to:
-- log in to my own account
-- view all of my created teams on my profile
-- to create new teams
-- view other user's teams on that user's page
-- leave comments on other user's teams
-- upvote or downvote a team
-- browse teams on an page that lists recently created teams
+- Log in to my own account
+- View all of my created teams on my profile
+- Create new teams
+- View other user's teams on that user's page
+- Leave comments on other user's teams
+- Upvote or downvote a team
+- Browse teams on an index page that lists recently created teams
 
 ## Bonus User Stories
 - Search and see suggestions when putting in new Pokemon
@@ -33,6 +33,7 @@ An experimental app for creating dedicated pages for Pokemon teams. It will incl
 
 # Getting Started
 
-[Click to View ERD](https://lucid.app/lucidchart/28740acf-bbb2-4ba4-bb02-4033b4aaffc0/view?page=0_0&invitationId=inv_fd8b3a65-ccc3-48c5-85fb-9bba9c933877#)
+Entity Relationship Diagram
+<img src="https://i.imgur.com/RZPn0Fi.png">
 
 <!--- [Click to Use App](your deployment url here) -->
