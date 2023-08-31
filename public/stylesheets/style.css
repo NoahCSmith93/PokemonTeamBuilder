@@ -31,3 +31,9 @@ span {
   font-size: 1.5vmin;
 
 }
+
+.team-index {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}

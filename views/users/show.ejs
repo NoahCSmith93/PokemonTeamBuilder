@@ -1,27 +1,29 @@
 <%- include("../partials/nav") %>
 
-<% teams.forEach(team => { %>
-    <div class="team-index">
-        <h3>
-            <%= team.name ? team.name : "Untitled Team" %>
-            <span>
-                <% if (user.id == team.owner) { %>
-                <a href="/teams/<%= team.id %>/confirm"> Delete</a>
-                <% } %>
-            </span>
-        </h3>
-        <p>Rating: <%= team.rating ? team.rating : 0 %></p>
-        <h5><%= team.description ? team.description : "" %></h5>
+<div class="team-index">
+    <% teams.forEach(team => { %>
+        <div class="member">
+            <h3>
+                <%= team.name ? team.name : "Untitled Team" %>
+                <span>
+                    <% if (user.id == team.owner) { %>
+                    <a href="/teams/<%= team.id %>/confirm"> Delete</a>
+                    <% } %>
+                </span>
+            </h3>
+            <p>Rating: <%= team.rating ? team.rating : 0 %></p>
+            <h5><%= team.description ? team.description : "" %></h5>
             <% team.members.forEach(member => { %>
                 <p>
                     <%= member.name ? `${member.name} the ` : "" %><%= member.species %>
                 </p>
             <% }) %>
-        <% if (user.id == team.owner) { %>
-        <a href="/teams/<%= team._id %>/edit">Edit Team</a>
-        <% } %>
-        <a href="/teams/<%= team._id %>">View Team</a>
-    </div>
-<% }) %>
+            <% if (user.id == team.owner) { %>
+                <a href="/teams/<%= team._id %>/edit">Edit Team</a>
+            <% } %>
+            <a href="/teams/<%= team._id %>">View Team</a>
+        </div>
+    <% }) %>
+</div>
 
 <%- include("../partials/footer") %>

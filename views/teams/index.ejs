@@ -1,3 +1,21 @@
 <%- include("../partials/nav") %>
 
+<div class="team-index">
+    <% for (let i = 1; i < 11; i++) { %>
+        <% if (teams.length - i < 0) break %>
+        <% const team = teams[(teams.length - i)] %>
+        <div>
+            <h3><%= team.name ? team.name : "Untitled Team" %></h3>
+            <h4><%= team.owner.name %></h4>
+            <p>Rating: <%= team.rating ? team.rating : 0 %></p>
+            <% team.members.forEach(member => { %>
+                <p>
+                    <%= member.name ? `${member.name} the ` : "" %><%= member.species %>
+                </p>
+            <% }) %>
+            <a href="/teams/<%= team._id %>">View Team</a>
+        </div>
+    <% } %>
+</div>
+
 <%- include("../partials/footer") %>
