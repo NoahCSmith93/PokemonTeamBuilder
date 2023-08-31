@@ -13,8 +13,8 @@ const router = express.Router()
 // Index
 router.get("/", (req, res) => {
     Team.find({})
+        .populate("owner")
         .then(teams => {
-            console.log("Found these teams", teams)
             res.render("teams/index", {teams, title: "Recent Teams"})
         })
         .catch(err => {
