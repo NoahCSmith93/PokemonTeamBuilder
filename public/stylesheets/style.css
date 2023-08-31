@@ -30,11 +30,29 @@ nav > a {
 
 span {
   font-size: 1.5vmin;
-
 }
 
 .team-index {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 1fr 1fr 1fr;
+  column-gap: 10px;
+  row-gap: 5vmin;
+}
+
+.team {
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  flex-direction: column;
+  flex: 1 0 auto;
+  justify-content: start;
+  box-sizing: border-box;
+}
+
+.team-link {
+ justify-self: end;
+ margin-top: auto;
+}
+
+.members {
+  margin: -1vmin, auto;
 }
