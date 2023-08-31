@@ -6,6 +6,7 @@
   body {
     background-color: darkgray;
     color: black;
+    padding: 0 0 2vmin 2vmin;
   }
 
   a > img {

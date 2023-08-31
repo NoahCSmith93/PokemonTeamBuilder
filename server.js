@@ -16,7 +16,7 @@ app.set('view engine', 'ejs');
 middleware(app)
 
 app.get("/", (req, res) => {
-    res.render("index", {title: "Main Page"})
+    res.render("index", {title: "Welcome to the Pokemon Team Builder app!"})
 })
 app.get("/error", (req, res) => {
     res.render("error", {title: "Something went wrong..."})
